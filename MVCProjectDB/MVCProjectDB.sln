@@ -5,6 +5,13 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MVCProjectDB", "MVCProjectDB\MVCProjectDB.sqlproj", "{4AC55E0C-75F9-4A22-A2C3-BD74D5ACE7AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCWeb", "MVCWeb\MVCWeb.csproj", "{9AC0B792-BC02-444D-8C43-6F1ACB6174AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A70B559D-0F57-403B-BFB2-C939E7DC7FD1}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +24,10 @@ Global
 		{4AC55E0C-75F9-4A22-A2C3-BD74D5ACE7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AC55E0C-75F9-4A22-A2C3-BD74D5ACE7AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4AC55E0C-75F9-4A22-A2C3-BD74D5ACE7AD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9AC0B792-BC02-444D-8C43-6F1ACB6174AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AC0B792-BC02-444D-8C43-6F1ACB6174AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AC0B792-BC02-444D-8C43-6F1ACB6174AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AC0B792-BC02-444D-8C43-6F1ACB6174AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
