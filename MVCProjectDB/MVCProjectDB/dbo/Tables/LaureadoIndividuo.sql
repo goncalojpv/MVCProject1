@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[LaureadoIndividuo] (
     [LaureadoId]         INT           NOT NULL,
-    [Nome]               VARCHAR (100) NOT NULL,
+    [Nome]               VARCHAR (300) NOT NULL,
     [DataNascimento]     DATE          NOT NULL,
     [DataMorte]          DATE          NULL,
     [CidadeNascimentoId] INT           NOT NULL,
@@ -11,4 +11,6 @@
     CONSTRAINT [FK_Individuo_Cidade1] FOREIGN KEY ([CidadeMorteId]) REFERENCES [dbo].[Cidade] ([CidadeId]),
     CONSTRAINT [FK_Individuo_Laureado] FOREIGN KEY ([LaureadoId]) REFERENCES [dbo].[Laureado] ([LaureadoId])
 );
+
+
 
