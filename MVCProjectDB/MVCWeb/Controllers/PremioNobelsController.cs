@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MVCWeb;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,7 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MVCWeb;
 
 namespace MVCWeb.Controllers
 {
@@ -15,10 +16,30 @@ namespace MVCWeb.Controllers
         private NobelEntities db = new NobelEntities();
 
         // GET: PremioNobels
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+
+        //    var premioNobel = db.PremioNobel.Include(p => p.Categoria);
+        //    return View(premioNobel.ToList());
+        //}
+
+        // GET: PremioNobels
+        public ActionResult Index(int? page, string searchStr)
         {
+            int aPage = page ?? 1;
+
+            int pageSize = Int16.Parse(System.Configuration.ConfigurationManager.AppSettings["ItemPorPagina"]);
+
+            ViewBag.searchStr = searchStr;
+
+            if (!string.IsNullOrEmpty(searchStr))
+            {
+                return View(db.PremioNobel.Where(p => p.Titulo.Contains(searchStr)).Include(p => p.Categoria).OrderBy(p => p.Ano).ToPagedList(aPage, pageSize));
+            }
+
+            // if(!String.IsNullOrEmpty(searchStr))
             var premioNobel = db.PremioNobel.Include(p => p.Categoria);
-            return View(premioNobel.ToList());
+            return View(db.PremioNobel.Include(p => p.Categoria).OrderBy(p => p.Ano).ToPagedList(aPage, pageSize));
         }
 
         // GET: PremioNobels/Details/5
@@ -28,7 +49,15 @@ namespace MVCWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PremioNobel premioNobel = db.PremioNobel.Find(id);
+
+            int? theId = id ?? 1;
+
+            //PremioNobel premioNobel = db.PremioNobel.Find(id); 
+
+            PremioNobel premioNobel = db.PremioNobel.Where(i => i.PremioNobelId == theId)
+                .Include("Laureado")
+                .FirstOrDefault();
+
             if (premioNobel == null)
             {
                 return HttpNotFound();
@@ -68,6 +97,7 @@ namespace MVCWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             PremioNobel premioNobel = db.PremioNobel.Find(id);
             if (premioNobel == null)
             {

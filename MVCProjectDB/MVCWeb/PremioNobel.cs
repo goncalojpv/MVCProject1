@@ -11,8 +11,9 @@ namespace MVCWeb
 {
     using System;
     using System.Collections.Generic;
+    using PagedList.Mvc;
     
-    public partial class PremioNobel
+    public partial class PremioNobel 
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PremioNobel()

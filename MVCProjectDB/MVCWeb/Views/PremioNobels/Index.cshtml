@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MVCWeb.PremioNobel>
+﻿@model PagedList.IPagedList<MVCWeb.PremioNobel>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
@@ -9,43 +10,86 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@if (Model.PageCount > 1)
+{
+    <div class=" pagination-left-container">
+        @Html.Raw(String.Format("Página: {0:N0} de {1:N0}", (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), Model.PageCount));<br />
+        @Html.Raw(String.Format("Entradas: {0:N0} - {1:N0} de {2:N0}",
+        (Model.PageNumber - 1) * Model.PageSize + 1,
+        (Model.TotalItemCount > Model.PageNumber * Model.PageSize ? Model.PageNumber * Model.PageSize : Model.TotalItemCount),
+        Model.TotalItemCount))<br />
+    </div>
+
+    <div class=" pagination-right-container">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, searchStr = ViewBag.searchStr }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    </div>
+}
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-7">
+            <h2>@ViewBag.title</h2>
+        </div>
+        <div class="col-lg-5">
+            @using (Html.BeginForm("index", "premioNobels", new {Page=1},FormMethod.Get))
+            {
+                <div class="form-horizontal">
+                    <div class="input-group">
+                        @Html.TextBox("searchStr", null, new { @class = "form.control"})
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search">
+                                </i>
+                            </button>
+                            @*<a class="btn btn-default" href="@Url("Index", "Premiosnobels",)></a>*@
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ano)
+            Ano @*@Html.DisplayNameFor(model => model.Ano)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Titulo)
+            Titulo @*@Html.DisplayNameFor(model => model.Titulo)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Motivacao)
+            Motivacao @*@Html.DisplayNameFor(model => model.Motivacao)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Categoria.Nome)
+            Nome @*@Html.DisplayNameFor(model => model.Categoria.Nome)*@
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ano)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Motivacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PremioNobelId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PremioNobelId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PremioNobelId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ano)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motivacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PremioNobelId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PremioNobelId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PremioNobelId })
+            </td>
+        </tr>
+    }
 
 </table>
